@@ -12,20 +12,35 @@ namespace GradeBook.Tests
     public delegate string WriteLogDelegate(string logMessage);
     public class TypeTests
     {
+        private int count = 0;  // Field
+
         [Fact]
         // We define a method where we use the new type, "WriteLogDelegate".
         public void WriteLogDelegateCanPointToMethod()
         {
             // We define a variable (log) with the Delegate type (WriteLogDelegate).
-            WriteLogDelegate log;
+            WriteLogDelegate log = ReturnMessage;
 
             // Log will take a new function, of type Delegate.
-            log = new WriteLogDelegate(ReturnMessage);
+            // it can be write as:
+            // log = ReturnMessage;
+
+            //log = new WriteLogDelegate(ReturnMessage);
+
+            log += ReturnMessage;
+            log += IncrementCount;
 
             // We compare the actual and expected values.
+           
             var result = log("Welcome");
-            Assert.Equal("Welcome",result);
+            Assert.Equal(3, count);
 
+        }
+
+        private string IncrementCount(string message)
+        {
+            count++;
+            return message.ToLower();
         }
 
         private string ReturnMessage(string message)
@@ -33,7 +48,7 @@ namespace GradeBook.Tests
         {
             return message;
         }
-
+        // ......................................................................
 
         [Fact]
         public void ValueTypeAlsoPassByValue()
