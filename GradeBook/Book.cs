@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 
 namespace GradeBook
 {
+
+    public delegate void GradeAddedDelegate(object sender, EventArgs args);    
     public class Book
     {
         public Book(string name)

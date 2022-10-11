@@ -6,8 +6,35 @@ using System.Threading.Tasks;
 
 namespace GradeBook.Tests
 {
+    // Demonstrating a Delegate
+    // When creating a Delegate, we use the keyword "delegate" and we need to define the parameters.
+    // It can be empty parameters too.
+    public delegate string WriteLogDelegate(string logMessage);
     public class TypeTests
     {
+        [Fact]
+        // We define a method where we use the new type, "WriteLogDelegate".
+        public void WriteLogDelegateCanPointToMethod()
+        {
+            // We define a variable (log) with the Delegate type (WriteLogDelegate).
+            WriteLogDelegate log;
+
+            // Log will take a new function, of type Delegate.
+            log = new WriteLogDelegate(ReturnMessage);
+
+            // We compare the actual and expected values.
+            var result = log("Welcome");
+            Assert.Equal("Welcome",result);
+
+        }
+
+        private string ReturnMessage(string message)
+            // Simple method, where we return a message.
+        {
+            return message;
+        }
+
+
         [Fact]
         public void ValueTypeAlsoPassByValue()
         {
