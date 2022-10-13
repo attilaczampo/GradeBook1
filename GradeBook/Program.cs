@@ -7,6 +7,10 @@ namespace GradeBook
         static void Main(string[] args)
         {
             var book = new Book("Science Book");
+            book.GradeAdded += OnGradeAdded;
+            book.GradeAdded += OnGradeAdded;
+            book.GradeAdded -= OnGradeAdded;
+            book.GradeAdded += OnGradeAdded;
 
             // Challange: Instead of hard-coding, we want to add the grades from the console.
             // We need a loop so that we can enter as many grades as we want.
@@ -17,8 +21,8 @@ namespace GradeBook
             //book.AddGrade(77.5);
 
             // ..
-         
-            while(true)
+
+            while (true)
             {
                 Console.WriteLine("Enter a grade or press 'Q' to quit");
                 var input = Console.ReadLine();
@@ -78,6 +82,12 @@ namespace GradeBook
             Console.WriteLine("Better call Saul!");
 
 
+        }
+
+        // We create another static method, that which can we access in the Main static method.
+        static void OnGradeAdded(object sender, EventArgs e)
+        {
+            Console.WriteLine("A grade was added!");
         }
     }
 }

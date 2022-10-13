@@ -7,9 +7,12 @@ using System.Threading.Tasks;
 
 namespace GradeBook
 {
-
-    public delegate void GradeAddedDelegate(object sender, EventArgs args);    
-    public class Book
+    // Defining an Event.
+    // An Event, much like a field/method/property, can be a member of a class.
+    public delegate void GradeAddedDelegate(object sender, EventArgs args);   
+    
+    // Inheritance via NamedObject class.
+    public class Book: NamedObject
     {
         public Book(string name)
         {
@@ -49,12 +52,20 @@ namespace GradeBook
             if(grade <= 100 && grade >=0)
             {
                 grades.Add(grade);
+                if(GradeAdded != null)
+                {
+                    GradeAdded(this, new EventArgs());
+                }
             }
             else
             {
                 throw new ArgumentException($"Invalid {nameof(grade)}");
             }
         }
+
+        //Event
+        public event GradeAddedDelegate GradeAdded;
+       
 
         public Statistics GetStats()
         // This is a public method and its return type, that is type of Object. (Statistics)
@@ -132,11 +143,13 @@ namespace GradeBook
 
         private List<double> grades;
 
-        public string Name
-        {
-            get; 
-            set;
-        }
+
+        // This property will get inherited
+        //public string Name
+        //{
+        //    get; 
+        //    set;
+        //}
         
     }
 }
