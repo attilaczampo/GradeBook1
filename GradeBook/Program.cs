@@ -7,6 +7,7 @@ namespace GradeBook
         static void Main(string[] args)
         {
             var book = new Book("Science Book");
+            //Event handlers.
             book.GradeAdded += OnGradeAdded;
             book.GradeAdded += OnGradeAdded;
             book.GradeAdded -= OnGradeAdded;
@@ -22,38 +23,10 @@ namespace GradeBook
 
             // ..
 
-            while (true)
-            {
-                Console.WriteLine("Enter a grade or press 'Q' to quit");
-                var input = Console.ReadLine();
+            EnterGrades(book);
 
-                if(input == "Q")
-                {
-                    break;   
-                }
-                try
-                {
-                    var grade = double.Parse(input);
-                    book.AddGrade(grade);
-                }
-                catch(ArgumentException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                catch(FormatException ex)
-                {
-                    Console.WriteLine(ex.Message);
-                }
-                finally
-                {
-                    Console.WriteLine("***********************************");
-                }
-               
-            }
-
-       
             var stats = book.GetStats();
-  
+
 
             Console.WriteLine($"For the book named {book.Name}");
             Console.WriteLine($"The highest grade is {stats.High}");
@@ -82,6 +55,40 @@ namespace GradeBook
             Console.WriteLine("Better call Saul!");
 
 
+        }
+
+        // Refactored: extracted Method from Main method.
+        // Encapsulation down here.
+        private static void EnterGrades(Book book)
+        {
+            while (true)
+            {
+                Console.WriteLine("Enter a grade or press 'Q' to quit");
+                var input = Console.ReadLine();
+
+                if (input == "Q")
+                {
+                    break;
+                }
+                try
+                {
+                    var grade = double.Parse(input);
+                    book.AddGrade(grade);
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                catch (FormatException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                finally
+                {
+                    Console.WriteLine("***********************************");
+                }
+
+            }
         }
 
         // We create another static method, that which can we access in the Main static method.

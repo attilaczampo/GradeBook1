@@ -14,7 +14,10 @@ namespace GradeBook
     // Inheritance via NamedObject class.
     public class Book: NamedObject
     {
-        public Book(string name)
+        public Book(string name): base(name)
+            // Base keyword - is a way that I can reference my base class.
+            // base and use parentheses - accesing a constructor on my base class.(NamedObject public class
+            // within having the NamedObject constructor.)
         {
             grades = new List<double>();
             // Special ocassion. 
